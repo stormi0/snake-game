@@ -13,13 +13,24 @@
 	border-right: 1px solid #999;
 }
 
-#matrix1 .snake {
+.fruit {
+	height: 17px;
+	margin: 1px;
+}
+
+.snake {
+	height: 18px;
+	margin: 0.5px;
+}
+
+.on .snake {
+	border-radius: 4px;
 	background-color: red;
 }
 
-#matrix1 .fruit {
+.on .fruit {
 	background-color: yellow;
-	border-radius: 9px;
+	border-radius: 8px;
 }
 
 #wall {

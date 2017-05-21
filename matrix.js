@@ -24,37 +24,10 @@ function Matrix(containerId, rows, cols) {
 		return ( div.className === "cell on" ? true : false )
 	}
 	
-	/*this.setCell = function(row, col, val) {
+	this.setCell = function(row, col, val) {
 		var index = (row - 1) * this.cols + (col - 1);
-		var cell = document.getElementById(this.containerId).children[index];
-		cell.className = ( val ? "cell on" : "cell" );
-	}*/
-	
-	this.setCell = function(row, col, obj, val) {
-		var index = (row - 1) * this.cols + (col - 1);
-		//var cell = document.getElementById(this.containerId).children[index];
 		var cell = $("#matrix1").children().eq(index);
 		
-		if(val) {
-			if(obj instanceof Snake) {
-				if(val) {
-					cell.addClass("snake");
-				}
-			} else if (obj instanceof Fruit) {
-				if(val){
-					cell.addClass("fruit");
-				}
-			}
-		} else {
-			if(obj instanceof Snake) {
-				if(val) {
-					cell.removeClass("snake");
-				}
-			} else if (obj instanceof Fruit) {
-				if(val){
-					cell.removeClass("fruit");
-				}
-			}
-		}
+		(val ? cell.addClass("on") : cell.removeClass("on") );
 	}
 }

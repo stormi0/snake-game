@@ -14,8 +14,6 @@ function Snake(body, course) {
 			elem = body[i];
 			var index = (elem[0] - 1) * game.matrix.cols + (elem[1] - 1);
 			var $cell = $("#matrix1").children().eq(index).append("<div class='snake'></div>");
-			//var $elemSnake = $("<div class='snake'></div>");
-			//$cell.append($elemSnake);
 			
 			game.matrix.setCell(elem[0],elem[1],that,true);
 		}
@@ -52,15 +50,15 @@ function Snake(body, course) {
 			   console.log("Game Over");   
 		}
 		
-		
+		var newHeadIndex = (newBody[0][0] - 1) * game.matrix.rows + (newBody[0][1] - 1);
 		
 		for(var i = 1; i < that.body.length; i++) {
 			newBody[i] = that.body[i - 1];				
 		}
 			
 		that.body = newBody;
-		game.matrix.setCell(that.body[0][0], that.body[0][1], that, true);
-		game.matrix.setCell(oldNailCell[0], oldNailCell[1], that, false);
+		game.matrix.setCell(that.body[0][0], that.body[0][1], true);
+		game.matrix.setCell(oldNailCell[0], oldNailCell[1], false);
 		
 		
 		// check new cell

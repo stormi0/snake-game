@@ -14,9 +14,10 @@ function Fruit() {
 		var div = document.createElement("div");
 		div.className = "fruit";
 		that.container.appendChild(div);	
-		game.matrix.setCell(that.row, that.col, that, true);
+		game.matrix.setCell(that.row, that.col, true);
 	}
 	
 	this.kill = function() {
+		$(".fruit").removeClass("on");
 	}
 }
