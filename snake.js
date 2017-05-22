@@ -47,12 +47,10 @@ function Snake(body, course) {
 		
 		var index = (newHeadCell[0] - 1) * game.matrix.rows + (newHeadCell[1] - 1);
 		var cell = game.matrix.getCell(index);
-		console.log(cell.hasFruit());
+		//console.log(cell.hasFruit());
 		
-		if(  ( 	  newHeadCell[0] < 0 || newHeadCell[0] > game.matrix.rows
-			   || newHeadCell[1] < 0 || newHeadCell[1] > game.matrix.cols )   
-			 ) {
-			   
+		if( 	game.matrix.isBorder(newHeadCell)
+			||	cell.hasSnakeElem() ) {
 			   console.log("Game Over");   
 		}
 		

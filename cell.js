@@ -5,18 +5,19 @@ function Cell(row, col){
 	this.col = col;
 	this.index = (this.row - 1) * game.matrix.rows + (this.col - 1);
 	
-	var $cell = $("#"+game.matrix.containerId).children().eq(this.index);
+	var $cell;
 	
 	this.create = function() {
-		var $newDiv = $("<div></div>").addClass("cell");
-		$("#"+game.matrix.containerId).append($newDiv);
+		$cell = $("<div></div>").addClass("cell");
+		$("#"+game.matrix.containerId).append($cell);
 	}
 	
 	this.hasSnakeElem = function() {
+		return $cell.children().hasClass("snake");
 	}
 	
 	this.hasFruit = function() {
-		return ( $cell.hasClass("fruit") ? true : false);
+		return $cell.children().hasClass("fruit");
 	}
 	
 	this.isEmpty = function() {
