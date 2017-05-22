@@ -25,39 +25,57 @@ function Snake(body, course) {
 		
 		// move//
 		var oldNailCell = that.body[body.length - 1].slice(); 
-		//var newHeadCell = that.body[0].slice(); 
+		var newHeadCell = that.body[0].slice();
 		var newBody = [[]];
 		
 		switch(that.course) {
-			case "right":
-				newBody[0] = [that.body[0][0],that.body[0][1] + 1] ;		
+			case "right":	
+				newHeadCell[1]++; 
 				break;
 			case "left":
-				newBody[0] = [that.body[0][0],that.body[0][1] - 1] ;
+				newHeadCell[1]--;
 				break;
 			case "down":
-				newBody[0] = [that.body[0][0] + 1,that.body[0][1]] ;
+				newHeadCell[0]++;
 				break;
 			case "up":
-				newBody[0] = [that.body[0][0] - 1,that.body[0][1]] ;
+				newHeadCell[0]--;
 				break;
+			default:
+				return;
 		}
 		
-		if(  ( 	  newBody[0][0] < 0 || newBody[0][0] > game.matrix.rows
-			   || newBody[0][1] < 0 || newBody[0][1] > game.matrix.cols )   
+		var index = (newHeadCell[0] - 1) * game.matrix.rows + (newHeadCell[1] - 1);
+		var cell = game.matrix.getCell(index);
+		console.log(cell.hasFruit());
+		
+		if(  ( 	  newHeadCell[0] < 0 || newHeadCell[0] > game.matrix.rows
+			   || newHeadCell[1] < 0 || newHeadCell[1] > game.matrix.cols )   
 			 ) {
 			   
 			   console.log("Game Over");   
 		}
 		
-		var newHeadIndex = (newBody[0][0] - 1) * game.matrix.rows + (newBody[0][1] - 1);
 		
+		newBody[0] = newHeadCell;
 		for(var i = 1; i < that.body.length; i++) {
 			newBody[i] = that.body[i - 1];				
 		}
 			
 		that.body = newBody;
+		
+		// drow Head
+		var headIndex = (that.body[0][0] - 1) * game.matrix.rows + (that.body[0][1] - 1);
+		var $newHeadCell = $("#matrix1").children().eq(headIndex);
+		var $snakeElemDiv = $("<div></div>").addClass("snake");
+		$newHeadCell.append($snakeElemDiv);
+		
 		game.matrix.setCell(that.body[0][0], that.body[0][1], true);
+		
+		// empty Nail	
+		var oldNailIndex = (oldNailCell[0] - 1) * game.matrix.rows + (oldNailCell[1] - 1);
+		$("#matrix1").children().eq(oldNailIndex).children().eq(0).remove();
+		
 		game.matrix.setCell(oldNailCell[0], oldNailCell[1], false);
 		
 		

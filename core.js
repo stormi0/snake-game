@@ -13,8 +13,9 @@ function Core() {
 		that.matrix = new Matrix("matrix1", 20, 20);
 		that.matrix.create();
 		
-		//snake = new Snake([[5,7],[5,6],[5,5],[5,4],[5,3]], "right");
-		snake = new Snake([[5,7],[5,6]], "right");
+		
+		snake = new Snake([[5,7],[5,6],[5,5],[5,4],[5,3]], "none");
+		//snake = new Snake([[5,7],[5,6]], "none");
 		snake.create();
 		
 		fruit = new Fruit();

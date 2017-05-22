@@ -20,6 +20,8 @@ window.onload = function () {
 			case "ArrowUp":
 				game.cmdUp();
 				break;
+			default:
+				break;
 		}	
 	}; 
 }
