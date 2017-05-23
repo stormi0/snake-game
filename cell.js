@@ -20,6 +20,14 @@ function Cell(row, col){
 		return $cell.children().hasClass("fruit");
 	}
 	
+	this.addSnakeElem = function() {
+		$cell.append("<div class='snake'></div>");
+	}
+	
+	this.removeFruit = function() {
+		$cell.children(".fruit").remove();
+	}
+	
 	this.isEmpty = function() {
 		return ( $cell.hasClass("on") ? true : false);
 	}
