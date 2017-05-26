@@ -1,5 +1,7 @@
 function Fruit() {
 	var that = this;
+	var $containerCell;
+	
 	this.cellIndex;
 	
 	this.create = function() {
@@ -8,13 +10,13 @@ function Fruit() {
 		that.col = Math.floor( 1 + Math.random() * (20 + 1 - 1) );
 		
 		that.cellIndex = (that.row - 1) * game.matrix.rows + that.col - 1 ;
-		var $cell = $("#"+game.matrix.containerId).children().eq(that.cellIndex);
-		$cell.append("<div class = 'fruit'><div/>")
-		
-		game.matrix.setCell(that.row, that.col, true);
+		var $containerCell = $("#"+game.matrix.containerId).children().eq(that.cellIndex);
+		$containerCell.append( $("<div></div>").addClass("fruit") );
 	}
 	
 	this.kill = function() {
-		//$(".fruit").removeClass("on");
+		$containerCell.remove(".fruit");
+		
+		var event = new Event("fruitEaten");
 	}
 }

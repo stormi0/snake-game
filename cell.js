@@ -5,10 +5,11 @@ function Cell(row, col){
 	this.col = col;
 	this.index = (this.row - 1) * game.matrix.rows + (this.col - 1);
 	
-	var $cell;
+	var $cell = $("<div></div>").addClass("cell");;
+	
+	var contentObject;
 	
 	this.create = function() {
-		$cell = $("<div></div>").addClass("cell");
 		$("#"+game.matrix.containerId).append($cell);
 	}
 	
@@ -21,11 +22,20 @@ function Cell(row, col){
 	}
 	
 	this.addSnakeElem = function() {
-		$cell.append("<div class='snake'></div>");
+		contentObject = new SnakeElement(that.index);
+		contentObject.create();
+		
 	}
 	
 	this.removeFruit = function() {
-		$cell.children(".fruit").remove();
+		
+		if (contentObject instanceof Fruit) {
+			contentObject.kill();
+		}
+	}
+	
+	this.removeSnakeElem = function() {
+		$cell.children(".snake").remove();
 	}
 	
 	this.isEmpty = function() {

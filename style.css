@@ -16,21 +16,15 @@
 .fruit {
 	height: 17px;
 	margin: 1px;
+	background-color: yellow;
+	border-radius: 8px;
 }
 
 .snake {
 	height: 18px;
 	margin: 0.5px;
-}
-
-.on .snake {
 	border-radius: 4px;
 	background-color: red;
-}
-
-.on .fruit {
-	background-color: yellow;
-	border-radius: 8px;
 }
 
 #wall {

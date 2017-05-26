@@ -21,8 +21,9 @@ function Core() {
 		fruit = new Fruit();
 		fruit.create();
 	
-		scoreBoard = new ScoreBoard();
-		scoreBoard.create();
+		//scoreBoard = new ScoreBoard();
+		//scoreBoard.create();
+		
 	}
 	
 	this.start = function() {

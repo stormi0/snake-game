@@ -1,93 +1,68 @@
-//function Snake(body, course) {
 function Snake(coords, course) {
 	
 	var that = this;
 	
 	this.course = course;
-	//this.body = body;
 	this.eated = false;
 	this.alive = true;
 	this.body = [];
 	
-	this.create = function() {
-		// drow a snake
-		
-		/*for (i = 0; i < body.length; i++) {
-			elem = body[i];
-			var index = (elem[0] - 1) * game.matrix.cols + (elem[1] - 1);
-			var $cell = $("#matrix1").children().eq(index).append("<div class='snake'></div>");
-			
-			game.matrix.setCell(elem[0],elem[1],that,true);
-		}*/
-		
+	this.create = function() {	
 		for(var i = 0; i < coords.length; i++) {
-			var index = (coords[i][0] - 1) * game.matrix.cols + (coords[i][1] - 1);
+			var index = (coords[i][0] - 1) * game.matrix.rows + (coords[i][1] - 1);
 			var cell = game.matrix.getCell(index);
 			cell.addSnakeElem();
 			that.body.push(cell);
 		}
-		
 	}
 	
 	this.move = function() {
 		that.eated = false;
 		
 		// move//
-		var oldNailCell = that.body[body.length - 1].slice(); 
-		var newHeadCell = that.body[0].slice();
-		var newBody = [[]];
-		
+		var newIndex = that.body[0].index;
 		switch(that.course) {
 			case "right":	
-				newHeadCell[1]++; 
+				newIndex++; 
 				break;
 			case "left":
-				newHeadCell[1]--;
+				newIndex--;
 				break;
 			case "down":
-				newHeadCell[0]++;
+				newIndex += game.matrix.rows;
 				break;
 			case "up":
-				newHeadCell[0]--;
+				newIndex -= game.matrix.rows;
 				break;
 			default:
 				return;
 		}
 		
-		var index = (newHeadCell[0] - 1) * game.matrix.rows + (newHeadCell[1] - 1);
-		var cell = game.matrix.getCell(index);
-		
-		if( 	game.matrix.isBorder(newHeadCell)
-			||	cell.hasSnakeElem() ) {
+		var newHeadCell = game.matrix.getCell(newIndex);
+		if (newHeadCell == null
+			|| game.matrix.isOutOfBorder(newHeadCell, game.matrix.getCell(that.body[0].index) )
+			|| newHeadCell.hasSnakeElem() ){
 				
 			console.log("Game Over");
 			return;
-		} else if(cell.hasFruit() ) {
-			console.log("Fruit");
-			that.eat(cell);
+		} else if (newHeadCell.hasFruit() ){
+			that.eat(newHeadCell);
 		}
 		
-		newBody[0] = newHeadCell;
+		newHeadCell.addSnakeElem();
+		var newBody = [newHeadCell];
 		for(var i = 1; i < that.body.length; i++) {
-			newBody[i] = that.body[i - 1];				
+			newBody.push(that.body[i - 1]);				
 		}
-			
+		
+		var oldNailCell = that.body[that.body.length - 1];
+		if (!that.eated) {
+			oldNailCell.removeSnakeElem();
+		} else {
+			newBody.push(oldNailCell);
+		}
+		
 		that.body = newBody;
-		
-		// drow Head
-		var headIndex = (that.body[0][0] - 1) * game.matrix.rows + (that.body[0][1] - 1);
-		var $newHeadCell = $("#matrix1").children().eq(headIndex);
-		var $snakeElemDiv = $("<div></div>").addClass("snake");
-		$newHeadCell.append($snakeElemDiv);
-		
-		game.matrix.setCell(that.body[0][0], that.body[0][1], true);
-		
-		// empty Nail	
-		var oldNailIndex = (oldNailCell[0] - 1) * game.matrix.rows + (oldNailCell[1] - 1);
-		$("#matrix1").children().eq(oldNailIndex).children().eq(0).remove();
-		
-		game.matrix.setCell(oldNailCell[0], oldNailCell[1], false);
-		
 		
 		// check new cell
 		// change coords of body
@@ -100,9 +75,6 @@ function Snake(coords, course) {
 		that.eated = true;
 		
 		cell.removeFruit();
-		cell.addSnakeElem();
-		var $cell = $("#"+game.matrix.containerId).children().eq(cell.index);
-		
 	}
 	
 	this.kill = function() {

@@ -33,10 +33,8 @@ function Matrix(containerId, rows, cols) {
 		(val ? cell.addClass("on") : cell.removeClass("on") );
 	}
 	
-	this.isBorder = function(cell) {
-		if(    cell[0] <= 0 || cell[0] > that.rows
-			|| cell[1] <= 0 || cell[1] > that.cols ) {
-				
+	this.isOutOfBorder = function(newCell, oldCell) {
+		if( newCell.col === 1 && oldCell.col === that.cols ) {	
 			return true;
 		} else {
 			return false;
