@@ -4,19 +4,20 @@ function Fruit() {
 	
 	this.cellIndex;
 	
-	this.create = function() {
+	this.create = function(row,col) {
 		
-		that.row = Math.floor( 1 + Math.random() * (20 + 1 - 1) );
-		that.col = Math.floor( 1 + Math.random() * (20 + 1 - 1) );
+		that.row = row;
+		that.col = col;
 		
 		that.cellIndex = (that.row - 1) * game.matrix.rows + that.col - 1 ;
-		var $containerCell = $("#"+game.matrix.containerId).children().eq(that.cellIndex);
+		$containerCell = $("#"+game.matrix.containerId).children().eq(that.cellIndex);
 		$containerCell.append( $("<div></div>").addClass("fruit") );
 	}
 	
 	this.kill = function() {
 		$containerCell.remove(".fruit");
 		
-		var event = new Event("fruitEaten");
+		//var event = new Event("fruitEaten");
+		$containerCell.trigger("fruitEaten");
 	}
 }

@@ -7,7 +7,7 @@ function Cell(row, col){
 	
 	var $cell = $("<div></div>").addClass("cell");;
 	
-	var contentObject;
+	this.contentObject;
 	
 	this.create = function() {
 		$("#"+game.matrix.containerId).append($cell);
@@ -27,18 +27,20 @@ function Cell(row, col){
 		
 	}
 	
+	this.addFruit = function(row, col) {
+		that.contentObject = new Fruit();
+		that.contentObject.create(row,col);
+	}
+	
+	
 	this.removeFruit = function() {
 		
-		if (contentObject instanceof Fruit) {
-			contentObject.kill();
+		if (that.contentObject instanceof Fruit) {
+			that.contentObject.kill();
 		}
 	}
 	
 	this.removeSnakeElem = function() {
 		$cell.children(".snake").remove();
-	}
-	
-	this.isEmpty = function() {
-		return ( $cell.hasClass("on") ? true : false);
 	}
 }

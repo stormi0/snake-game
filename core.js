@@ -13,14 +13,22 @@ function Core() {
 		that.matrix = new Matrix("matrix1", 20, 20);
 		that.matrix.create();
 		
+		var matrixDOM = document.getElementById(that.matrix.containerId);
+		matrixDOM.addEventListener("fruitEaten", function(e) { alert("Fruuuuit!") }, false);
+		
 		
 		snake = new Snake([[5,7],[5,6],[5,5],[5,4],[5,3]], "none");
 		//snake = new Snake([[5,7],[5,6]], "none");
 		snake.create();
 		
-		fruit = new Fruit();
-		fruit.create();
-	
+		//fruit = new Fruit();
+		//fruit.create();
+		var fruitRow = Math.floor( 1 + Math.random() * (20 + 1 - 1) );
+		var fruitCol = Math.floor( 1 + Math.random() * (20 + 1 - 1) );
+		var index = (fruitRow - 1) * game.matrix.rows + (fruitCol - 1);
+		var cell = that.matrix.getCell(index);
+		cell.addFruit(fruitRow, fruitCol);
+		
 		//scoreBoard = new ScoreBoard();
 		//scoreBoard.create();
 		
